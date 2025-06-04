@@ -1,13 +1,13 @@
-#ifndef ARM_1_H
-#define ARM_1_H
+#ifndef ARM_2_H
+#define ARM_2_H
 
-#include "ITC.h"
+#include "./src/ITC.h"
 
-class Arm_1
+class Arm_2
 {
 public:
-    Arm_1() {}
-    ~Arm_1() {}
+    Arm_2() {}
+    ~Arm_2() {}
 
     void register_data_elements()
     {
@@ -33,10 +33,10 @@ public:
 
 private:
     ITC &data_store = ITC::getInstance();
-    Data_element<int32_t> element_encoder_count_1 = {"ENC_1", "/path_arm_1", 124};
-    Data_element<int32_t> element_encoder_count_2 = {"ENC_2", "/path_arm_1", 180};
-    Data_element<int32_t> element_encoder_count_1_other = {"ENC_1", "/path_arm_2", 446};
-    Data_element<int32_t> element_encoder_count_2_other = {"ENC_2", "/path_arm_2", 456};
+    Data_element<int32_t> element_encoder_count_1 = {"ENC_1", "/path_arm_2", 45};
+    Data_element<int32_t> element_encoder_count_2 = {"ENC_2", "/path_arm_2", 18};
+    Data_element<int32_t> element_encoder_count_1_other = {"ENC_1", "/path_arm_1", 88};
+    Data_element<int32_t> element_encoder_count_2_other = {"ENC_2", "/path_arm_1", 56};
 };
 
-#endif // ATM_1_H
+#endif // ATM_2_H
