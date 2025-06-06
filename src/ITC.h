@@ -7,6 +7,8 @@
 #include <cstring>
 #include <pthread.h>
 #include <vector>
+#include <sys/mman.h>
+#include <sched.h>
 
 using namespace std;
 
@@ -98,6 +100,12 @@ public:
 private:
     ITC()
     {
+        // Lock memory to prevent page faults
+        if (mlockall(MCL_CURRENT | MCL_FUTURE) != 0)
+        {
+            std::cerr << "WARNING: Failed to lock memory with mlockall\n";
+        }
+
         pthread_mutexattr_t attr;
         pthread_mutexattr_init(&attr);
         pthread_mutexattr_setprotocol(&attr, PTHREAD_PRIO_INHERIT);
