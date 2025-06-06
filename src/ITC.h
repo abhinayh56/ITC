@@ -76,19 +76,23 @@ public:
     template <typename T>
     void set_data_element(const Data_element<T> &data_element)
     {
-        pthread_mutex_lock(&m_mutex);
-        memcpy(&m_data_buffer[data_element.index], &data_element.value, sizeof(T));
-        pthread_mutex_unlock(&m_mutex);
-        std::cout << "W: " << data_element.value << std::endl;
+        if (pthread_mutex_trylock(&m_mutex) == 0)
+        {
+            memcpy(&m_data_buffer[data_element.index], &data_element.value, sizeof(T));
+            pthread_mutex_unlock(&m_mutex);
+            std::cout << "W: " << data_element.value << std::endl;
+        }
     }
 
     template <typename T>
-    void get_data(Data_element<T> &data_element)
+    void get_data_element(Data_element<T> &data_element)
     {
-        pthread_mutex_lock(&m_mutex);
-        memcpy(&data_element.value, &m_data_buffer[data_element.index], sizeof(T));
-        pthread_mutex_unlock(&m_mutex);
-        std::cout << "R: " << data_element.value << std::endl;
+        if (pthread_mutex_trylock(&m_mutex) == 0)
+        {
+            memcpy(&data_element.value, &m_data_buffer[data_element.index], sizeof(T));
+            pthread_mutex_unlock(&m_mutex);
+            std::cout << "R: " << data_element.value << std::endl;
+        }
     }
 
 private:

@@ -25,10 +25,10 @@ public:
         data_store.set_data_element<int>(element_encoder_count_1_other);
         data_store.set_data_element<int>(element_encoder_count_2_other);
 
-        data_store.get_data<int>(element_encoder_count_1);
-        data_store.get_data<int>(element_encoder_count_2);
-        data_store.get_data<int>(element_encoder_count_1_other);
-        data_store.get_data<int>(element_encoder_count_2_other);
+        data_store.get_data_element<int>(element_encoder_count_1);
+        data_store.get_data_element<int>(element_encoder_count_2);
+        data_store.get_data_element<int>(element_encoder_count_1_other);
+        data_store.get_data_element<int>(element_encoder_count_2_other);
     }
 
 private:
