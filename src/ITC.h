@@ -98,7 +98,11 @@ public:
 private:
     ITC()
     {
-        pthread_mutex_init(&m_mutex, nullptr);
+        pthread_mutexattr_t attr;
+        pthread_mutexattr_init(&attr);
+        pthread_mutexattr_setprotocol(&attr, PTHREAD_PRIO_INHERIT);
+        pthread_mutex_init(&m_mutex, &attr);
+        pthread_mutexattr_destroy(&attr);
         m_data_buffer.reserve(1024);
     }
 
