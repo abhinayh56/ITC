@@ -49,7 +49,6 @@ public:
 
             size_t required_size = m_offset_required + sizeof(T);
 
-
             if (required_size > m_data_buffer.size())
             {
                 m_data_buffer.resize(required_size);
