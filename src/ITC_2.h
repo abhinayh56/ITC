@@ -42,8 +42,7 @@ public:
                 m_data_buffer.resize(required_size);
             }
 
-            m_offset = m_offset_required;
-            index = m_offset;
+            index = m_offset_required;
             // m_data_element_map.insert({path_key, index});
             m_data_element_map[path_key] = index;
             std::cout << "INFO: Data element set.         Index: " << index << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
