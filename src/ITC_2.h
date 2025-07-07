@@ -5,40 +5,41 @@
 #include <string>
 #include <vector>
 #include <stdint.h>
+#include <iostream>
 #include <sys/mman.h>
 
-template <typename T>
-class Data_store_element
-{
-public:
-    Data_store_element(std::string key_, std::string path_, T &value_)
-    {
-        key = key_;
-        path = path_;
-        index = data_store.register_element(key, path, value_);
-    }
+// template <typename T>
+// class Data_store_element
+// {
+// public:
+//     Data_store_element(std::string key_, std::string path_, T &value_)
+//     {
+//         key = key_;
+//         path = path_;
+//         index = data_store.register_element(key, path, value_);
+//     }
 
-    ~Data_store_element()
-    {
-    }
+//     ~Data_store_element()
+//     {
+//     }
 
-    bool get(T &value)
-    {
-        data_store.get(index, value);
-    }
+//     bool get(T &value)
+//     {
+//         data_store.get(index, value);
+//     }
 
-    bool set(const T &value)
-    {
-        data_store.set(index, value);
-    }
+//     bool set(const T &value)
+//     {
+//         data_store.set(index, value);
+//     }
 
-private:
-    std::string key;
-    std::string path;
-    uint64_t index;
+// private:
+//     std::string key;
+//     std::string path;
+//     uint64_t index;
 
-    Data_store &data_store = Data_store::getInstance();
-};
+//     Data_store &data_store = Data_store::getInstance();
+// };
 
 class Data_store
 {
@@ -53,9 +54,9 @@ public:
     }
 
     template <typename T>
-    uint64_t register_element(std::string key_, std::string path_, T &value_)
+    uint64_t register_element(std::string key, std::string path, T &value)
     {
-        std::string path_key = data_element.path + "/" + data_element.key;
+        std::string path_key = path + "/" + key;
         std::cout << "---\n"
                   << path_key << "\n";
 
@@ -77,15 +78,15 @@ public:
             // m_data_element_map.insert({path_key, m_offset});
             m_data_element_map[path_key] = m_offset;
             m_offset += sizeof(T);
-            memcpy(&m_data_buffer[m_offset], &data_element.value, sizeof(T));
+            memcpy(&m_data_buffer[m_offset], value, sizeof(T));
 
-            std::cout << "INFO: Data element set.         Index: " << m_offset << ", Key: " << data_element.key << ", Path: " << data_element.path << ", Value: " << data_element.value << std::endl;
+            std::cout << "INFO: Data element set.         Index: " << m_offset << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
         }
         else
         {
             m_offset = m_data_element_map[path_key];
-            memcpy(&m_data_buffer[m_offset], &data_element.value, sizeof(T));
-            std::cout << "INFO: Data element already set. Index: " << m_offset << ", Key: " << data_element.key << ", Path: " << data_element.path << ", Value: " << data_element.value << std::endl;
+            memcpy(&m_data_buffer[m_offset], value, sizeof(T));
+            std::cout << "INFO: Data element already set. Index: " << m_offset << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
         }
 
         return m_offset;
@@ -98,9 +99,9 @@ public:
     }
 
     template <typename T>
-    void set(uint64_t index, const T &value_)
+    void set(uint64_t index, const T &value)
     {
-        memcpy(&m_data_buffer[index], value, sizeof(T));
+        memcpy(&m_data_buffer[index], &value, sizeof(T));
     }
 
 private:
@@ -110,6 +111,8 @@ private:
         {
             std::cerr << "WARNING: Failed to lock memory with mlockall\n";
         }
+
+        m_data_buffer.reserve(1024);
     }
 
     ~Data_store()
@@ -119,7 +122,6 @@ private:
     std::vector<uint8_t> m_data_buffer;
     uint64_t m_offset = 0;
     std::map<std::string, uint64_t> m_data_element_map; // key (string name of data element) : value (pointer of data element)
-    m_data_buffer.reserve(1024);
 };
 
 #endif // ITC_H_2
