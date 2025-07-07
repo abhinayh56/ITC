@@ -28,6 +28,7 @@ public:
                   << path_key << "\n";
 
         auto it = m_data_element_map.find(path_key);
+        uint64_t index = 0;
 
         if (it == m_data_element_map.end())
         {
@@ -42,20 +43,21 @@ public:
             }
 
             m_offset = m_offset_required;
-            // m_data_element_map.insert({path_key, m_offset});
-            m_data_element_map[path_key] = m_offset;
-            std::cout << "INFO: Data element set.         Index: " << m_offset << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
+            index = m_offset;
+            // m_data_element_map.insert({path_key, index});
+            m_data_element_map[path_key] = index;
+            std::cout << "INFO: Data element set.         Index: " << index << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
             m_offset += sizeof(T);
-            memcpy(&m_data_buffer[m_offset], &value, sizeof(T));
+            memcpy(&m_data_buffer[index], &value, sizeof(T));
         }
         else
         {
-            m_offset = m_data_element_map[path_key];
-            memcpy(&m_data_buffer[m_offset], &value, sizeof(T));
-            std::cout << "INFO: Data element already set. Index: " << m_offset << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
+            index = m_data_element_map[path_key];
+            memcpy(&m_data_buffer[index], &value, sizeof(T));
+            std::cout << "INFO: Data element already set. Index: " << index << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
         }
 
-        return m_offset;
+        return index;
     }
 
     template <typename T>
