@@ -63,7 +63,7 @@ class Manipulator_2
 public:
     void run()
     {
-        Data_store_element<int64_t> encoder_count_7_element("ENCODER_COUNT_1", "MANIPULATOR_1", encoder_count_7, true);
+        Data_store_element<int64_t> encoder_count_7_element("ENCODER_COUNT_1", "MANIPULATOR_1", encoder_count_7, false);
         Data_store_element<uint64_t> encoder_count_8_element("ENCODER_COUNT_2", "MANIPULATOR_1", encoder_count_8);
         Data_store_element<int32_t> encoder_count_9_element("ENCODER_COUNT_3", "MANIPULATOR_1", encoder_count_9);
         Data_store_element<uint32_t> encoder_count_10_element("ENCODER_COUNT_4", "MANIPULATOR_1", encoder_count_10);
@@ -84,7 +84,7 @@ public:
         encoder_count_11 = 12;
         encoder_count_12 = 1;
 
-        // encoder_count_7_element.set(5678);
+        encoder_count_7_element.set(encoder_count_7);
         encoder_count_8_element.set(encoder_count_8);
         encoder_count_9_element.set(encoder_count_9);
         encoder_count_10_element.set(encoder_count_10);
