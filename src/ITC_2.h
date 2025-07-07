@@ -2,7 +2,7 @@
 #define ITC_H_2
 
 #include <map>
-#include <string>
+#include <string.h>
 #include <vector>
 #include <stdint.h>
 #include <iostream>
@@ -45,14 +45,14 @@ public:
             // m_data_element_map.insert({path_key, m_offset});
             m_data_element_map[path_key] = m_offset;
             m_offset += sizeof(T);
-            memcpy(&m_data_buffer[m_offset], value, sizeof(T));
+            memcpy(&m_data_buffer[m_offset], &value, sizeof(T));
 
             std::cout << "INFO: Data element set.         Index: " << m_offset << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
         }
         else
         {
             m_offset = m_data_element_map[path_key];
-            memcpy(&m_data_buffer[m_offset], value, sizeof(T));
+            memcpy(&m_data_buffer[m_offset], &value, sizeof(T));
             std::cout << "INFO: Data element already set. Index: " << m_offset << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
         }
 
@@ -99,7 +99,7 @@ public:
     {
         key = key_;
         path = path_;
-        // index = data_store.register_element(key, path, value_);
+        index = data_store.register_element(key, path, value_);
     }
 
     ~Data_store_element()
