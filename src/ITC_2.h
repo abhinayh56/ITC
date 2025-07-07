@@ -44,10 +44,9 @@ public:
             m_offset = m_offset_required;
             // m_data_element_map.insert({path_key, m_offset});
             m_data_element_map[path_key] = m_offset;
+            std::cout << "INFO: Data element set.         Index: " << m_offset << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
             m_offset += sizeof(T);
             memcpy(&m_data_buffer[m_offset], &value, sizeof(T));
-
-            std::cout << "INFO: Data element set.         Index: " << m_offset << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
         }
         else
         {

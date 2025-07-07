@@ -19,6 +19,10 @@ int main()
 
     Data_store_element<int64_t> encoder_count_7_element("ENCODER_COUNT_1", "MANIPULATOR_1", encoder_count_1);
     Data_store_element<uint64_t> encoder_count_8_element("ENCODER_COUNT_2", "MANIPULATOR_1", encoder_count_2);
+    Data_store_element<int32_t> encoder_count_9_element("ENCODER_COUNT_3", "MANIPULATOR_1", encoder_count_3);
+    Data_store_element<uint32_t> encoder_count_10_element("ENCODER_COUNT_4", "MANIPULATOR_1", encoder_count_4);
+    Data_store_element<int16_t> encoder_count_11_element("ENCODER_COUNT_5", "MANIPULATOR_1", encoder_count_5);
+    Data_store_element<uint16_t> encoder_count_12_element("ENCODER_COUNT_6", "MANIPULATOR_1", encoder_count_6);
 
     return 0;
 }
