@@ -8,39 +8,6 @@
 #include <iostream>
 #include <sys/mman.h>
 
-// template <typename T>
-// class Data_store_element
-// {
-// public:
-//     Data_store_element(std::string key_, std::string path_, T &value_)
-//     {
-//         key = key_;
-//         path = path_;
-//         index = data_store.register_element(key, path, value_);
-//     }
-
-//     ~Data_store_element()
-//     {
-//     }
-
-//     bool get(T &value)
-//     {
-//         data_store.get(index, value);
-//     }
-
-//     bool set(const T &value)
-//     {
-//         data_store.set(index, value);
-//     }
-
-// private:
-//     std::string key;
-//     std::string path;
-//     uint64_t index;
-
-//     Data_store &data_store = Data_store::getInstance();
-// };
-
 class Data_store
 {
 public:
@@ -122,6 +89,41 @@ private:
     std::vector<uint8_t> m_data_buffer;
     uint64_t m_offset = 0;
     std::map<std::string, uint64_t> m_data_element_map; // key (string name of data element) : value (pointer of data element)
+};
+
+template <typename T>
+class Data_store_element
+{
+public:
+    Data_store_element(std::string key_, std::string path_, T &value_)
+    {
+        key = key_;
+        path = path_;
+        // index = data_store.register_element(key, path, value_);
+    }
+
+    ~Data_store_element()
+    {
+    }
+
+    bool get(T &value)
+    {
+        data_store.get(index, value);
+        return true;
+    }
+
+    bool set(const T &value)
+    {
+        data_store.set(index, value);
+        return true;
+    }
+
+private:
+    std::string key;
+    std::string path;
+    uint64_t index;
+
+    Data_store &data_store = Data_store::getInstance();
 };
 
 #endif // ITC_H_2
