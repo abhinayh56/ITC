@@ -21,7 +21,7 @@ public:
     }
 
     template <typename T>
-    uint64_t register_element(std::string key, std::string path, T &value)
+    uint64_t register_element(std::string key, std::string path, T value, bool overwrite = true)
     {
         std::string path_key = path + "/" + key;
         std::cout << "---\n"
@@ -52,7 +52,14 @@ public:
         else
         {
             index = m_data_element_map[path_key];
-            memcpy(&m_data_buffer[index], &value, sizeof(T));
+            if (overwrite)
+            {
+                memcpy(&m_data_buffer[index], &value, sizeof(T));
+            }
+            else
+            {
+                memcpy(&value, &m_data_buffer[index], sizeof(T));
+            }
             std::cout << "INFO: Data element already set. Index: " << index << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
         }
 
@@ -95,11 +102,11 @@ template <typename T>
 class Data_store_element
 {
 public:
-    Data_store_element(std::string key_, std::string path_, T &value_)
+    Data_store_element(std::string key_, std::string path_, T value_, bool overwrite = true)
     {
         key = key_;
         path = path_;
-        index = data_store.register_element<T>(key, path, value_);
+        index = data_store.register_element<T>(key, path, value_, overwrite);
     }
 
     ~Data_store_element()
