@@ -55,7 +55,40 @@ public:
     template <typename T>
     uint64_t register_element(std::string key_, std::string path_, T &value_)
     {
-        return 0;
+        std::string path_key = data_element.path + "/" + data_element.key;
+        std::cout << "---\n"
+                  << path_key << "\n";
+
+        auto it = m_data_element_map.find(path_key);
+
+        if (it == m_data_element_map.end())
+        {
+            size_t alignment = alignof(T);
+            uint64_t m_offset_required = (m_offset + alignment - 1) & ~(alignment - 1); // align up
+
+            size_t required_size = m_offset_required + sizeof(T);
+
+            if (required_size > m_data_buffer.size())
+            {
+                m_data_buffer.resize(required_size);
+            }
+
+            m_offset = m_offset_required;
+            // m_data_element_map.insert({path_key, m_offset});
+            m_data_element_map[path_key] = m_offset;
+            m_offset += sizeof(T);
+            memcpy(&m_data_buffer[m_offset], &data_element.value, sizeof(T));
+
+            std::cout << "INFO: Data element set.         Index: " << m_offset << ", Key: " << data_element.key << ", Path: " << data_element.path << ", Value: " << data_element.value << std::endl;
+        }
+        else
+        {
+            m_offset = m_data_element_map[path_key];
+            memcpy(&m_data_buffer[m_offset], &data_element.value, sizeof(T));
+            std::cout << "INFO: Data element already set. Index: " << m_offset << ", Key: " << data_element.key << ", Path: " << data_element.path << ", Value: " << data_element.value << std::endl;
+        }
+
+        return m_offset;
     }
 
     template <typename T>
