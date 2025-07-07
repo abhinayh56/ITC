@@ -10,19 +10,54 @@ int main()
     int16_t encoder_count_5 = 125;
     uint16_t encoder_count_6 = 125;
 
-    Data_store_element<int64_t> encoder_count_1_element("ENCODER_COUNT_1", "MANIPULATOR_1", encoder_count_1);
+    Data_store_element<int64_t>  encoder_count_1_element("ENCODER_COUNT_1", "MANIPULATOR_1", encoder_count_1);
     Data_store_element<uint64_t> encoder_count_2_element("ENCODER_COUNT_2", "MANIPULATOR_1", encoder_count_2);
-    Data_store_element<int32_t> encoder_count_3_element("ENCODER_COUNT_3", "MANIPULATOR_1", encoder_count_3);
+    Data_store_element<int32_t>  encoder_count_3_element("ENCODER_COUNT_3", "MANIPULATOR_1", encoder_count_3);
     Data_store_element<uint32_t> encoder_count_4_element("ENCODER_COUNT_4", "MANIPULATOR_1", encoder_count_4);
-    Data_store_element<int16_t> encoder_count_5_element("ENCODER_COUNT_5", "MANIPULATOR_1", encoder_count_5);
+    Data_store_element<int16_t>  encoder_count_5_element("ENCODER_COUNT_5", "MANIPULATOR_1", encoder_count_5);
     Data_store_element<uint16_t> encoder_count_6_element("ENCODER_COUNT_6", "MANIPULATOR_1", encoder_count_6);
 
-    Data_store_element<int64_t> encoder_count_7_element("ENCODER_COUNT_1", "MANIPULATOR_1", encoder_count_1);
-    Data_store_element<uint64_t> encoder_count_8_element("ENCODER_COUNT_2", "MANIPULATOR_1", encoder_count_2);
-    Data_store_element<int32_t> encoder_count_9_element("ENCODER_COUNT_3", "MANIPULATOR_1", encoder_count_3);
-    Data_store_element<uint32_t> encoder_count_10_element("ENCODER_COUNT_4", "MANIPULATOR_1", encoder_count_4);
-    Data_store_element<int16_t> encoder_count_11_element("ENCODER_COUNT_5", "MANIPULATOR_1", encoder_count_5);
-    Data_store_element<uint16_t> encoder_count_12_element("ENCODER_COUNT_6", "MANIPULATOR_1", encoder_count_6);
+    std::cout << "encoder_count_1: " << encoder_count_1 << std::endl;
+    std::cout << "encoder_count_2: " << encoder_count_2 << std::endl;
+    std::cout << "encoder_count_3: " << encoder_count_3 << std::endl;
+    std::cout << "encoder_count_4: " << encoder_count_4 << std::endl;
+    std::cout << "encoder_count_5: " << encoder_count_5 << std::endl;
+    std::cout << "encoder_count_6: " << encoder_count_6 << std::endl;
+
+    encoder_count_1 = 123456;
+    encoder_count_2 = 12345;
+    encoder_count_3 = 1234;
+    encoder_count_4 = 123;
+    encoder_count_5 = 12;
+    encoder_count_6 = 1;
+
+    encoder_count_1_element.set(encoder_count_1);
+    encoder_count_2_element.set(encoder_count_2);
+    encoder_count_3_element.set(encoder_count_3);
+    encoder_count_4_element.set(encoder_count_4);
+    encoder_count_5_element.set(encoder_count_5);
+    encoder_count_6_element.set(encoder_count_6);
+
+    encoder_count_1_element.get(encoder_count_1);
+    encoder_count_2_element.get(encoder_count_2);
+    encoder_count_3_element.get(encoder_count_3);
+    encoder_count_4_element.get(encoder_count_4);
+    encoder_count_5_element.get(encoder_count_5);
+    encoder_count_6_element.get(encoder_count_6);
+
+    std::cout << "encoder_count_1: " << encoder_count_1 << std::endl;
+    std::cout << "encoder_count_2: " << encoder_count_2 << std::endl;
+    std::cout << "encoder_count_3: " << encoder_count_3 << std::endl;
+    std::cout << "encoder_count_4: " << encoder_count_4 << std::endl;
+    std::cout << "encoder_count_5: " << encoder_count_5 << std::endl;
+    std::cout << "encoder_count_6: " << encoder_count_6 << std::endl;
+
+    // Data_store_element<int64_t> encoder_count_7_element("ENCODER_COUNT_1", "MANIPULATOR_1", encoder_count_1);
+    // Data_store_element<uint64_t> encoder_count_8_element("ENCODER_COUNT_2", "MANIPULATOR_1", encoder_count_2);
+    // Data_store_element<int32_t> encoder_count_9_element("ENCODER_COUNT_3", "MANIPULATOR_1", encoder_count_3);
+    // Data_store_element<uint32_t> encoder_count_10_element("ENCODER_COUNT_4", "MANIPULATOR_1", encoder_count_4);
+    // Data_store_element<int16_t> encoder_count_11_element("ENCODER_COUNT_5", "MANIPULATOR_1", encoder_count_5);
+    // Data_store_element<uint16_t> encoder_count_12_element("ENCODER_COUNT_6", "MANIPULATOR_1", encoder_count_6);
 
     return 0;
 }

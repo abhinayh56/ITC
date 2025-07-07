@@ -61,7 +61,7 @@ public:
     template <typename T>
     void get(uint64_t index, T &value)
     {
-        memcpy(value, &m_data_buffer[index], sizeof(T));
+        memcpy(&value, &m_data_buffer[index], sizeof(T));
     }
 
     template <typename T>
@@ -98,7 +98,7 @@ public:
     {
         key = key_;
         path = path_;
-        index = data_store.register_element(key, path, value_);
+        index = data_store.register_element<T>(key, path, value_);
     }
 
     ~Data_store_element()
@@ -107,13 +107,13 @@ public:
 
     bool get(T &value)
     {
-        data_store.get(index, value);
+        data_store.get<T>(index, value);
         return true;
     }
 
     bool set(const T &value)
     {
-        data_store.set(index, value);
+        data_store.set<T>(index, value);
         return true;
     }
 
