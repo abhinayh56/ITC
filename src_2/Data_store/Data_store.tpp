@@ -15,7 +15,6 @@ uint64_t Data_store::register_element(std::string key, std::string path, T value
 
     auto it = m_data_element_map.find(path_key);
     uint64_t index = 0;
-
     Data_element<T> data_element;
     data_element.data = value;
 
