@@ -6,6 +6,13 @@
 #include "../Data_store/Data_store.h"
 
 template <typename T>
+struct Data_element
+{
+    T data;
+    pthread_mutex_t m_mutex;
+};
+
+template <typename T>
 class Data_store_element
 {
 public:
@@ -21,7 +28,8 @@ private:
     std::string m_key;
     std::string m_path;
     uint64_t m_index;
-    pthread_mutex_t m_mutex;
+
+    Data_element<T> data_element;
 
     Data_store &data_store = Data_store::getInstance();
 };

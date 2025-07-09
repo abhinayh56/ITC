@@ -16,6 +16,9 @@ uint64_t Data_store::register_element(std::string key, std::string path, T value
     auto it = m_data_element_map.find(path_key);
     uint64_t index = 0;
 
+    Data_element<T> data_element;
+    data_element.data = value;
+
     if (it == m_data_element_map.end())
     {
         size_t alignment = alignof(T);
@@ -33,18 +36,18 @@ uint64_t Data_store::register_element(std::string key, std::string path, T value
         m_data_element_map[path_key] = index;
         std::cout << "INFO: Data element set.         Index: " << index << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
         m_offset += sizeof(T);
-        memcpy(&m_data_buffer[index], &value, sizeof(T));
+        memcpy(&m_data_buffer[index], &data_element, sizeof(T));
     }
     else
     {
         index = m_data_element_map[path_key];
         if (overwrite)
         {
-            memcpy(&m_data_buffer[index], &value, sizeof(T));
+            memcpy(&m_data_buffer[index], &data_element, sizeof(Data_element<T>));
         }
         else
         {
-            memcpy(&value, &m_data_buffer[index], sizeof(T));
+            memcpy(&data_element, &m_data_buffer[index], sizeof(Data_element<T>));
         }
         std::cout << "INFO: Data element already set. Index: " << index << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
     }
@@ -53,15 +56,21 @@ uint64_t Data_store::register_element(std::string key, std::string path, T value
 }
 
 template <typename T>
-void Data_store::get(uint64_t index, T &value)
+void Data_store::get(uint64_t index, Data_element<T> &data_element)
 {
-    memcpy(&value, &m_data_buffer[index], sizeof(T));
+    if (pthread_mutex_trylock(&data_element.mutex) == 0)
+    {
+        memcpy(&data_element.data, &m_data_buffer[index], sizeof(Data_element<T>));
+    }
 }
 
 template <typename T>
-void Data_store::set(uint64_t index, const T &value)
+void Data_store::set(uint64_t index, const Data_element<T> &data_element)
 {
-    memcpy(&m_data_buffer[index], &value, sizeof(T));
+    if (pthread_mutex_trylock(&data_element.mutex) == 0)
+    {
+        memcpy(&m_data_buffer[index], &data_element.data, sizeof(Data_element<T>));
+    }
 }
 
 Data_store::Data_store()
