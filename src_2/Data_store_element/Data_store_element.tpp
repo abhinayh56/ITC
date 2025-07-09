@@ -1,7 +1,7 @@
 #include "Data_store_element.h"
 
 template <typename T>
-Data_store_element<T>::Data_store_element(std::string key_, std::string path_, T value_, bool overwrite = true)
+Data_store_element<T>::Data_store_element(std::string key_, std::string path_, T value_, bool overwrite)
 {
     key = key_;
     path = path_;

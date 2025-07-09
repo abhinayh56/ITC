@@ -2,8 +2,9 @@
 #define DATA_STORE_H
 
 #include <map>
-#include <string>
 #include <vector>
+#include <string>
+#include <cstring>
 #include <stdint.h>
 #include <iostream>
 #include <sys/mman.h>

@@ -7,7 +7,7 @@ Data_store &Data_store::getInstance()
 }
 
 template <typename T>
-uint64_t Data_store::register_element(std::string key, std::string path, T value, bool overwrite = true)
+uint64_t Data_store::register_element(std::string key, std::string path, T value, bool overwrite)
 {
     std::string path_key = path + "/" + key;
     std::cout << "---\n"
