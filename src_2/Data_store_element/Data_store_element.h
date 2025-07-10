@@ -4,13 +4,7 @@
 #include <string>
 #include <pthread.h>
 #include "../Data_store/Data_store.h"
-
-template <typename T>
-struct Data_element
-{
-    T data;
-    pthread_mutex_t m_mutex;
-};
+#include "../Data_element/Data_element.h"
 
 template <typename T>
 class Data_store_element

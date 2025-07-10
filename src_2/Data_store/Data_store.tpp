@@ -7,7 +7,7 @@ Data_store &Data_store::getInstance()
 }
 
 template <typename T>
-uint64_t Data_store::register_element(std::string key, std::string path, T value, bool overwrite)
+uint64_t Data_store::register_element(std::string key, std::string path, Data_element<T> &data_element, bool overwrite)
 {
     std::string path_key = path + "/" + key;
     std::cout << "---\n"
@@ -15,15 +15,13 @@ uint64_t Data_store::register_element(std::string key, std::string path, T value
 
     auto it = m_data_element_map.find(path_key);
     uint64_t index = 0;
-    Data_element<T> data_element;
-    data_element.data = value;
 
     if (it == m_data_element_map.end())
     {
         size_t alignment = alignof(T);
         uint64_t m_offset_required = (m_offset + alignment - 1) & ~(alignment - 1); // align up
 
-        size_t required_size = m_offset_required + sizeof(T);
+        size_t required_size = m_offset_required + sizeof(Data_element<T>);
 
         if (required_size > m_data_buffer.size())
         {
@@ -31,11 +29,10 @@ uint64_t Data_store::register_element(std::string key, std::string path, T value
         }
 
         index = m_offset_required;
-        // m_data_element_map.insert({path_key, index});
         m_data_element_map[path_key] = index;
         std::cout << "INFO: Data element set.         Index: " << index << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
         m_offset += sizeof(T);
-        memcpy(&m_data_buffer[index], &data_element, sizeof(T));
+        memcpy(&m_data_buffer[index], &data_element, sizeof(Data_element<T>));
     }
     else
     {

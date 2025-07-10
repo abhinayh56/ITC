@@ -9,13 +9,7 @@
 #include <iostream>
 #include <pthread.h>
 #include <sys/mman.h>
-
-template <typename T>
-struct Data_element
-{
-    T data;
-    pthread_mutex_t mutex;
-};
+#include "../Data_element/Data_element.h"
 
 class Data_store
 {
@@ -25,7 +19,7 @@ public:
     static Data_store &getInstance();
 
     template <typename T>
-    uint64_t register_element(std::string key, std::string path, T value, bool overwrite = true);
+    uint64_t register_element(std::string key, std::string path, Data_element<T> &data_element, bool overwrite = true);
 
     template <typename T>
     void get(uint64_t index, Data_element<T> &data_element);
