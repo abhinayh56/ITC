@@ -9,6 +9,8 @@ Data_store &Data_store::getInstance()
 template <typename T>
 uint64_t Data_store::register_element(std::string key, std::string path, Data_element<T> &data_element, bool overwrite)
 {
+    pthread_mutex_lock(m_mutex);
+
     std::string path_key = path + "/" + key;
     std::cout << "---\n"
               << path_key << "\n";
@@ -47,6 +49,7 @@ uint64_t Data_store::register_element(std::string key, std::string path, Data_el
         }
         std::cout << "INFO: Data element already set. Index: " << index << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
     }
+    pthread_mutex_unlock(&m_mutex);
 
     return index;
 }
@@ -75,6 +78,12 @@ Data_store::Data_store()
     {
         std::cerr << "WARNING: Failed to lock memory with mlockall\n";
     }
+
+    pthread_mutexattr_t attr;
+    pthread_mutexattr_init(&attr);
+    pthread_mutexattr_setprotocol(&attr, PTHREAD_PRIO_INHERIT);
+    pthread_mutex_init(&m_mutex, &attr);
+    pthread_mutexattr_destroy(&attr);
 
     m_data_buffer.reserve(1024);
 }

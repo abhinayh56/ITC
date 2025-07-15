@@ -31,10 +31,9 @@ private:
     Data_store();
     ~Data_store();
 
+    std::map<std::string, uint64_t> m_data_element_map; // key (string name of data element) : value (pointer of data element)
     std::vector<uint8_t> m_data_buffer;
     uint64_t m_offset = 0;
-    std::map<std::string, uint64_t> m_data_element_map; // key (string name of data element) : value (pointer of data element)
-
     pthread_mutex_t m_mutex;
 };
 
