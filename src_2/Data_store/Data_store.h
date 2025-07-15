@@ -22,10 +22,10 @@ public:
     uint64_t register_element(std::string key, std::string path, Data_element<T> &data_element, bool overwrite = true);
 
     template <typename T>
-    void get(uint64_t index, Data_element<T> &data_element);
+    bool get(uint64_t index, Data_element<T> &data_element);
 
     template <typename T>
-    void set(uint64_t index, const Data_element<T> &data_element);
+    bool set(uint64_t index, const Data_element<T> &data_element);
 
 private:
     Data_store();

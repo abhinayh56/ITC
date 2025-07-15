@@ -16,13 +16,27 @@ Data_store_element<T>::~Data_store_element()
 template <typename T>
 bool Data_store_element<T>::get(T &value)
 {
-    data_store.get<T>(m_index, value);
-    return true;
+    if (data_store.get<T>(m_index, data_element))
+    {
+        value = data_element.data;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 template <typename T>
 bool Data_store_element<T>::set(const T &value)
 {
-    data_store.set<T>(m_index, value);
-    return true;
+    data_element.data = value;
+    if (data_store.set<T>(m_index, data_element))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
