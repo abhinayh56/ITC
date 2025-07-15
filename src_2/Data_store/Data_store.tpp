@@ -32,7 +32,7 @@ uint64_t Data_store::register_element(std::string key, std::string path, Data_el
 
         index = m_offset_required;
         m_data_element_map[path_key] = index;
-        std::cout << "INFO: Data element set.         Index: " << index << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
+        std::cout << "INFO: Data element set.         Index: " << index << ", Key: " << key << ", Path: " << path << ", Value: " << data_element.value << std::endl;
         m_offset += sizeof(T);
         memcpy(&m_data_buffer[index], &data_element, sizeof(Data_element<T>));
     }
@@ -47,7 +47,7 @@ uint64_t Data_store::register_element(std::string key, std::string path, Data_el
         {
             memcpy(&data_element, &m_data_buffer[index], sizeof(Data_element<T>));
         }
-        std::cout << "INFO: Data element already set. Index: " << index << ", Key: " << key << ", Path: " << path << ", Value: " << value << std::endl;
+        std::cout << "INFO: Data element already set. Index: " << index << ", Key: " << key << ", Path: " << path << ", Value: " << data_element.value << std::endl;
     }
     pthread_mutex_unlock(&m_mutex);
 
