@@ -17,6 +17,7 @@ int main()
     de_1.set(178);
 
     de_1.get(data_1);
+    de_2.get(data_2);
     std::cout << "data_1: " << data_1 << std::endl;
     std::cout << "data_2: " << data_2 << std::endl;
     std::cout << "---" << std::endl;
