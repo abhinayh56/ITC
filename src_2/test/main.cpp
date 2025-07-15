@@ -52,10 +52,10 @@ public:
 private:
     int64_t encoder_count_1 = 125;
     uint64_t encoder_count_2 = 125;
-    int32_t encoder_count_3 = 125;
-    uint32_t encoder_count_4 = 125;
-    int16_t encoder_count_5 = 125;
-    uint16_t encoder_count_6 = 125;
+    int32_t encoder_count_3 = 126;
+    uint32_t encoder_count_4 = 127;
+    int16_t encoder_count_5 = 128;
+    uint16_t encoder_count_6 = 129;
 };
 
 class Manipulator_2
@@ -63,7 +63,7 @@ class Manipulator_2
 public:
     void run()
     {
-        Data_store_element<int64_t> encoder_count_7_element("ENCODER_COUNT_1", "MANIPULATOR_1", encoder_count_7, false);
+        Data_store_element<int64_t> encoder_count_7_element("ENCODER_COUNT_1", "MANIPULATOR_1", encoder_count_7, true);
         Data_store_element<uint64_t> encoder_count_8_element("ENCODER_COUNT_2", "MANIPULATOR_1", encoder_count_8);
         Data_store_element<int32_t> encoder_count_9_element("ENCODER_COUNT_3", "MANIPULATOR_1", encoder_count_9);
         Data_store_element<uint32_t> encoder_count_10_element("ENCODER_COUNT_4", "MANIPULATOR_1", encoder_count_10);
