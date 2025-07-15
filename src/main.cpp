@@ -10,7 +10,7 @@ int main()
     data_store.get(index_1, data_1, sizeof(int16_t));
     std::cout << "Data_1: " << data_1 << std::endl;
 
-    uint64_t index_2 = data_store.register_element<int16_t>("KEY_1", "/path_1", 120, sizeof(int16_t), true);
+    uint64_t index_2 = data_store.register_element<int16_t>("KEY_2", "/path_1", 120, sizeof(int16_t), true);
     int16_t data_2 = 0;
     data_store.get(index_2, data_2, sizeof(int16_t));
     std::cout << "Data_2: " << data_2 << std::endl;
