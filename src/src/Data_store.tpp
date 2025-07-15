@@ -68,6 +68,7 @@ bool Data_store::set(uint64_t index, const T &data_, std::size_t size_)
 Data_store::Data_store()
 {
     m_data_buffer.reserve(1024);
+    m_mutex_buffer.reserve(1);
 }
 
 Data_store::~Data_store()

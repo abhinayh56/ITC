@@ -7,6 +7,7 @@
 #include <cstring>
 #include <stdint.h>
 #include <iostream>
+#include <pthread.h>
 
 class Data_store
 {
@@ -29,7 +30,10 @@ private:
     ~Data_store();
 
     std::map<std::string, uint64_t> m_data_element_map; // key (string name of data element) : value (pointer of data element)
+    std::map<std::string, uint64_t> m_mutex__map;
     std::vector<uint8_t> m_data_buffer;
+    std::vector<pthread_mutex_t> m_mutex_buffer;
+
     uint64_t m_offset = 0;
 };
 
