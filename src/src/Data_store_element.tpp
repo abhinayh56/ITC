@@ -1,11 +1,11 @@
 #include "Data_store_element.h"
 
 template <typename T>
-Data_store_element<T>::Data_store_element(std::string key_, std::string path_, T value_, bool overwrite)
+Data_store_element<T>::Data_store_element(std::string key_, std::string path_, T value_, bool overwrite_)
 {
     m_key = key_;
     m_path = path_;
-    m_data_element.data = value_;
+    m_data = value_;
 
     pthread_mutexattr_t attr;
     pthread_mutexattr_init(&attr);
@@ -13,7 +13,7 @@ Data_store_element<T>::Data_store_element(std::string key_, std::string path_, T
     pthread_mutex_init(m_data_element.mutex, &attr);
     pthread_mutexattr_destroy(&attr);
 
-    m_index = data_store.register_element<T>(m_key, m_path, m_data_element, overwrite);
+    m_index = data_store.register_element<T>(m_key, m_path, m_data, overwrite_);
 }
 
 template <typename T>

@@ -1,55 +1,40 @@
 #include <iostream>
-#include <thread>
-#include <chrono>
-#include "./Data_store_element/Data_store_element.h"
-
-// Simulate a background task updating sensor value
-void sensor_task(Data_store_element<float>& sensor)
-{
-    float value = 0.0f;
-    while (true)
-    {
-        value += 0.1f;
-        sensor.set(value);
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    }
-}
-
-// Simulate a task reading sensor value
-void consumer_task(Data_store_element<float>& sensor)
-{
-    float value;
-    while (true)
-    {
-        if (sensor.get(value))
-        {
-            std::cout << "[Consumer] Sensor value = " << value << std::endl;
-        }
-        else
-        {
-            std::cout << "[Consumer] Failed to get sensor value." << std::endl;
-        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(300));
-    }
-}
+#include "./src/Data_store.h"
 
 int main()
 {
-    std::cout << "Real-Time Data Store Demo" << std::endl;
+    Data_store &data_store = Data_store::getInstance();
 
-    // Create/register a float sensor element
-    Data_store_element<float> sensor("imu_pitch", "/sensors/imu", 0.0f);
+    uint64_t index_1 = data_store.register_element<int16_t>("KEY_1", "/path_1", 126, sizeof(int16_t), true);
+    int16_t data_1 = 0;
+    data_store.get(index_1, data_1, sizeof(int16_t));
+    std::cout << "Data_1: " << data_1 << std::endl;
 
-    // Spawn threads
-    std::thread sensor_thread(sensor_task, std::ref(sensor));
-    std::thread consumer_thread(consumer_task, std::ref(sensor));
+    uint64_t index_2 = data_store.register_element<int16_t>("KEY_1", "/path_1", 120, sizeof(int16_t), true);
+    int16_t data_2 = 0;
+    data_store.get(index_2, data_2, sizeof(int16_t));
+    std::cout << "Data_2: " << data_2 << std::endl;
 
-    // Let it run for a while
-    std::this_thread::sleep_for(std::chrono::seconds(10));
+    data_store.get(index_1, data_1, sizeof(int16_t));
+    std::cout << "Data_1: " << data_1 << std::endl;
 
-    // Stop threads (in real app, you’d want proper thread shutdown)
-    sensor_thread.detach();
-    consumer_thread.detach();
+    data_1 = 446;
+    data_store.set(index_1, data_1, sizeof(int16_t));
+
+    data_store.get(index_1, data_1, sizeof(int16_t));
+    std::cout << "Data_1: " << data_1 << std::endl;
+
+    data_store.get(index_2, data_2, sizeof(int16_t));
+    std::cout << "Data_2: " << data_2 << std::endl;
+
+    data_2 = 78;
+    data_store.set(index_2, data_2, sizeof(int16_t));
+
+    data_store.get(index_1, data_1, sizeof(int16_t));
+    std::cout << "Data_1: " << data_1 << std::endl;
+
+    data_store.get(index_2, data_2, sizeof(int16_t));
+    std::cout << "Data_2: " << data_2 << std::endl;
 
     return 0;
 }
