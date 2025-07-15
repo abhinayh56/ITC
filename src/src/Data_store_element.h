@@ -13,9 +13,9 @@ public:
 
     ~Data_store_element();
 
-    bool get(T &value);
+    bool get(T &data_);
 
-    bool set(const T &value);
+    bool set(const T &data_);
 
 private:
     std::string m_key;
