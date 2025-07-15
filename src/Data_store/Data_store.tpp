@@ -57,10 +57,10 @@ uint64_t Data_store::register_element(std::string key, std::string path, Data_el
 template <typename T>
 bool Data_store::get(uint64_t index, Data_element<T> &data_element)
 {
-    if (pthread_mutex_trylock(&data_element.mutex) == 0)
+    if (pthread_mutex_trylock(data_element.mutex) == 0)
     {
         memcpy(&data_element.data, &m_data_buffer[index], sizeof(T));
-        pthread_mutex_unlock(&data_element.mutex);
+        pthread_mutex_unlock(data_element.mutex);
         return true;
     }
     else
@@ -72,10 +72,10 @@ bool Data_store::get(uint64_t index, Data_element<T> &data_element)
 template <typename T>
 bool Data_store::set(uint64_t index, Data_element<T> &data_element)
 {
-    if (pthread_mutex_trylock(&data_element.mutex) == 0)
+    if (pthread_mutex_trylock(data_element.mutex) == 0)
     {
         memcpy(&m_data_buffer[index], &data_element.data, sizeof(T));
-        pthread_mutex_unlock(&data_element.mutex);
+        pthread_mutex_unlock(data_element.mutex);
         return true;
     }
     else

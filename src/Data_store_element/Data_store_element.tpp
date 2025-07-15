@@ -10,7 +10,7 @@ Data_store_element<T>::Data_store_element(std::string key_, std::string path_, T
     pthread_mutexattr_t attr;
     pthread_mutexattr_init(&attr);
     pthread_mutexattr_setprotocol(&attr, PTHREAD_PRIO_INHERIT);
-    pthread_mutex_init(&m_data_element.mutex, &attr);
+    pthread_mutex_init(m_data_element.mutex, &attr);
     pthread_mutexattr_destroy(&attr);
 
     m_index = data_store.register_element<T>(m_key, m_path, m_data_element, overwrite);
