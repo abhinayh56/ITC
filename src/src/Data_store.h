@@ -9,7 +9,6 @@
 #include <iostream>
 #include <pthread.h>
 #include <sys/mman.h>
-#include "../Data_element/Data_element.h"
 
 class Data_store
 {
