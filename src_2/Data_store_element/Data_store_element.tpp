@@ -5,7 +5,8 @@ Data_store_element<T>::Data_store_element(std::string key_, std::string path_, T
 {
     m_key = key_;
     m_path = path_;
-    m_index = data_store.register_element<T>(key, path, value_, overwrite);
+    m_data_element.data = value_;
+    m_index = data_store.register_element<T>(m_key, m_path, m_data_element, overwrite);
 }
 
 template <typename T>
@@ -16,9 +17,9 @@ Data_store_element<T>::~Data_store_element()
 template <typename T>
 bool Data_store_element<T>::get(T &value)
 {
-    if (data_store.get<T>(m_index, data_element))
+    if (data_store.get<T>(m_index, m_data_element))
     {
-        value = data_element.data;
+        value = m_data_element.data;
         return true;
     }
     else
@@ -30,8 +31,8 @@ bool Data_store_element<T>::get(T &value)
 template <typename T>
 bool Data_store_element<T>::set(const T &value)
 {
-    data_element.data = value;
-    if (data_store.set<T>(m_index, data_element))
+    m_data_element.data = value;
+    if (data_store.set<T>(m_index, m_data_element))
     {
         return true;
     }

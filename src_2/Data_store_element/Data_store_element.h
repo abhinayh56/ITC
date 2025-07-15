@@ -23,7 +23,7 @@ private:
     std::string m_path;
     uint64_t m_index;
 
-    Data_element<T> data_element;
+    Data_element<T> m_data_element;
 
     Data_store &data_store = Data_store::getInstance();
 };
