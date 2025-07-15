@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <iostream>
 #include <pthread.h>
+#include <sys/mman.h>
 
 class Data_store
 {
@@ -17,7 +18,7 @@ public:
     static Data_store &getInstance();
 
     template <typename T>
-    uint64_t register_element(std::string key_, std::string path_, T data_, std::size_t size_, bool overwrite_ = true);
+    bool register_element(std::string key_, std::string path_, T data_, std::size_t size_, bool overwrite_ = true);
 
     template <typename T>
     bool get(uint64_t index, T &data_, std::size_t size_);
@@ -29,10 +30,11 @@ private:
     Data_store();
     ~Data_store();
 
-    std::map<std::string, uint64_t> m_data_element_map; // key (string name of data element) : value (pointer of data element)
-    std::map<std::string, uint64_t> m_mutex__map;
+    std::map<std::string, uint64_t> m_data_element_map;
+    std::map<std::string, uint64_t> m_mutex_element_map;
     std::vector<uint8_t> m_data_buffer;
     std::vector<pthread_mutex_t> m_mutex_buffer;
+    pthread_mutex_t m_mutex;
 
     uint64_t m_offset = 0;
 };
