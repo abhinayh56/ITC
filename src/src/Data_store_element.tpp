@@ -1,19 +1,14 @@
 #include "Data_store_element.h"
 
 template <typename T>
-Data_store_element<T>::Data_store_element(std::string key_, std::string path_, T value_, bool overwrite_)
+Data_store_element<T>::Data_store_element(std::string key_, std::string path_, T data_, bool overwrite_)
 {
     m_key = key_;
     m_path = path_;
-    m_data = value_;
+    m_data = data_;
+    m_size = sizeof(T);
 
-    pthread_mutexattr_t attr;
-    pthread_mutexattr_init(&attr);
-    pthread_mutexattr_setprotocol(&attr, PTHREAD_PRIO_INHERIT);
-    pthread_mutex_init(m_data_element.mutex, &attr);
-    pthread_mutexattr_destroy(&attr);
-
-    m_index = data_store.register_element<T>(m_key, m_path, m_data, overwrite_);
+    m_index = data_store.register_element<T>(m_key, m_path, m_data, m_size, overwrite_);
 }
 
 template <typename T>
@@ -24,27 +19,15 @@ Data_store_element<T>::~Data_store_element()
 template <typename T>
 bool Data_store_element<T>::get(T &data_)
 {
-    if (data_store.get<T>(m_index, m_data_element))
-    {
-        data_ = m_data_element.data;
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    bool flag = data_store.get<T>(m_index, m_data, m_size);
+    data_ = m_data;
+    return flag;
 }
 
 template <typename T>
 bool Data_store_element<T>::set(const T &data_)
 {
-    m_data_element.data = data_;
-    if (data_store.set<T>(m_index, m_data_element))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    m_data = data_;
+    bool flag = data_store.set<T>(m_index, m_data, m_size);
+    return flag;
 }

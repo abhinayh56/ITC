@@ -1,40 +1,25 @@
 #include <iostream>
-#include "./src/Data_store.h"
+#include "./src/Data_store_element.h"
 
 int main()
 {
-    Data_store &data_store = Data_store::getInstance();
+    int16_t data_1 = 111;
+    int16_t data_2 = 222;
+    Data_store_element<int16_t> de_1("KEY_1", "/path_1", 104, true);
+    Data_store_element<int16_t> de_2("KEY_1", "/path_1", 145, true);
 
-    uint64_t index_1 = data_store.register_element<int16_t>("KEY_1", "/path_1", 126, sizeof(int16_t), true);
-    int16_t data_1 = 0;
-    data_store.get(index_1, data_1, sizeof(int16_t));
-    std::cout << "Data_1: " << data_1 << std::endl;
+    de_1.get(data_1);
+    de_2.get(data_2);
+    std::cout << "data_1: " << data_1 << std::endl;
+    std::cout << "data_2: " << data_2 << std::endl;
+    std::cout << "---" << std::endl;
 
-    uint64_t index_2 = data_store.register_element<int16_t>("KEY_2", "/path_1", 120, sizeof(int16_t), true);
-    int16_t data_2 = 0;
-    data_store.get(index_2, data_2, sizeof(int16_t));
-    std::cout << "Data_2: " << data_2 << std::endl;
+    de_1.set(178);
 
-    data_store.get(index_1, data_1, sizeof(int16_t));
-    std::cout << "Data_1: " << data_1 << std::endl;
-
-    data_1 = 446;
-    data_store.set(index_1, data_1, sizeof(int16_t));
-
-    data_store.get(index_1, data_1, sizeof(int16_t));
-    std::cout << "Data_1: " << data_1 << std::endl;
-
-    data_store.get(index_2, data_2, sizeof(int16_t));
-    std::cout << "Data_2: " << data_2 << std::endl;
-
-    data_2 = 78;
-    data_store.set(index_2, data_2, sizeof(int16_t));
-
-    data_store.get(index_1, data_1, sizeof(int16_t));
-    std::cout << "Data_1: " << data_1 << std::endl;
-
-    data_store.get(index_2, data_2, sizeof(int16_t));
-    std::cout << "Data_2: " << data_2 << std::endl;
+    de_1.get(data_1);
+    std::cout << "data_1: " << data_1 << std::endl;
+    std::cout << "data_2: " << data_2 << std::endl;
+    std::cout << "---" << std::endl;
 
     return 0;
 }
