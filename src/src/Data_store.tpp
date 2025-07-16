@@ -9,7 +9,7 @@ Data_store &Data_store::getInstance()
 template <typename T>
 bool Data_store::register_element(std::string key_, std::string path_, T data_, std::size_t size_, bool overwrite_, uint64_t &index_data, uint64_t &index_mutex)
 {
-    pthread_mutex_lock(&m_mutex);
+    pthread_mutex_lock(&m_mutex_buffer[0]);
 
     std::string path_key = path_ + "/" + key_;
     std::cout << "---\n"
@@ -65,7 +65,7 @@ bool Data_store::register_element(std::string key_, std::string path_, T data_, 
     index_data = index_d;
     index_mutex = index_m;
 
-    pthread_mutex_unlock(&m_mutex);
+    pthread_mutex_unlock(&m_mutex_buffer[0]);
 
     return true;
 }
@@ -99,14 +99,14 @@ Data_store::Data_store()
         std::cerr << "WARNING: Failed to lock memory with mlockall\n";
     }
 
+    m_data_buffer.reserve(1024);
+    m_mutex_buffer.reserve(1500);
+
     pthread_mutexattr_t attr;
     pthread_mutexattr_init(&attr);
     pthread_mutexattr_setprotocol(&attr, PTHREAD_PRIO_INHERIT);
-    pthread_mutex_init(&m_mutex, &attr);
+    pthread_mutex_init(&m_mutex_buffer[0], &attr);
     pthread_mutexattr_destroy(&attr);
-
-    m_data_buffer.reserve(1024);
-    m_mutex_buffer.reserve(1500);
 }
 
 Data_store::~Data_store()
@@ -115,5 +115,4 @@ Data_store::~Data_store()
     {
         pthread_mutex_destroy(&m);
     }
-    pthread_mutex_destroy(&m_mutex);
 }
