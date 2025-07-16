@@ -5,36 +5,28 @@ int main()
 {
     Data_store &data_store = Data_store::getInstance();
 
-    uint64_t index_1 = data_store.register_element<int16_t>("KEY_1", "/path_1", 126, sizeof(int16_t), true);
-    int16_t data_1 = 0;
-    data_store.get(index_1, data_1, sizeof(int16_t));
-    std::cout << "Data_1: " << data_1 << std::endl;
+    bool register_1_data = false;
+    bool register_2_data = false;
+    bool register_3_data = false;
+    bool register_4_data = false;
+    uint64_t index_1_data;
+    uint64_t index_2_data;
+    uint64_t index_3_data;
+    uint64_t index_4_data;
+    uint64_t index_1_mutex;
+    uint64_t index_2_mutex;
+    uint64_t index_3_mutex;
+    uint64_t index_4_mutex;
 
-    uint64_t index_2 = data_store.register_element<int16_t>("KEY_2", "/path_1", 120, sizeof(int16_t), true);
-    int16_t data_2 = 0;
-    data_store.get(index_2, data_2, sizeof(int16_t));
-    std::cout << "Data_2: " << data_2 << std::endl;
+    register_1_data = data_store.register_element("K_1", "P_1", 128, sizeof(uint32_t), true, index_1_data, index_1_mutex);
+    register_2_data = data_store.register_element("K_11", "P_1", 107, sizeof(uint32_t), true, index_2_data, index_2_mutex);
+    register_3_data = data_store.register_element("K_123", "P_1", 549, sizeof(uint32_t), true, index_3_data, index_3_mutex);
+    register_4_data = data_store.register_element("K_11", "P_1", 549, sizeof(uint32_t), true, index_4_data, index_4_mutex);
 
-    data_store.get(index_1, data_1, sizeof(int16_t));
-    std::cout << "Data_1: " << data_1 << std::endl;
-
-    data_1 = 446;
-    data_store.set(index_1, data_1, sizeof(int16_t));
-
-    data_store.get(index_1, data_1, sizeof(int16_t));
-    std::cout << "Data_1: " << data_1 << std::endl;
-
-    data_store.get(index_2, data_2, sizeof(int16_t));
-    std::cout << "Data_2: " << data_2 << std::endl;
-
-    data_2 = 78;
-    data_store.set(index_2, data_2, sizeof(int16_t));
-
-    data_store.get(index_1, data_1, sizeof(int16_t));
-    std::cout << "Data_1: " << data_1 << std::endl;
-
-    data_store.get(index_2, data_2, sizeof(int16_t));
-    std::cout << "Data_2: " << data_2 << std::endl;
+    std::cout << "index_1_data: " << index_1_data << ", index_1_mutex: " << index_1_mutex << std::endl;
+    std::cout << "index_2_data: " << index_2_data << ", index_2_mutex: " << index_2_mutex << std::endl;
+    std::cout << "index_3_data: " << index_3_data << ", index_3_mutex: " << index_3_mutex << std::endl;
+    std::cout << "index_4_data: " << index_4_data << ", index_4_mutex: " << index_4_mutex << std::endl;
 
     return 0;
 }
