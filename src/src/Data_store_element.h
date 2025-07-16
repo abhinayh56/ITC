@@ -16,6 +16,10 @@ public:
 
     bool set(const T &data_);
 
+    uint64_t get_index_data();
+
+    uint64_t get_index_mutex();
+
 private:
     std::string m_key;
     std::string m_path;

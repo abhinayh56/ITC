@@ -1,32 +1,24 @@
 #include <iostream>
-#include "./src/Data_store.h"
+#include "./src/Data_store_element.h"
 
 int main()
 {
-    Data_store &data_store = Data_store::getInstance();
+    int32_t data_1 = 0;
+    int32_t data_2 = 0;
+    int32_t data_3 = 0;
+    int32_t data_4 = 0;
+    int32_t data_5 = 0;
 
-    bool register_1_data = false;
-    bool register_2_data = false;
-    bool register_3_data = false;
-    bool register_4_data = false;
-    uint64_t index_1_data;
-    uint64_t index_2_data;
-    uint64_t index_3_data;
-    uint64_t index_4_data;
-    uint64_t index_1_mutex;
-    uint64_t index_2_mutex;
-    uint64_t index_3_mutex;
-    uint64_t index_4_mutex;
+    Data_store_element<int32_t> dse_1("K_1", "P_1", 125, true);
+    Data_store_element<int32_t> dse_2("K_11", "P_1", 127, true);
+    Data_store_element<int32_t> dse_3("K_12", "P_1", 127, true);
+    Data_store_element<int32_t> dse_4("K_12", "P_1", 45, true);
+    Data_store_element<int32_t> dse_5("K_11", "P_1", 446, true);
 
-    register_1_data = data_store.register_element("K_1", "P_1", 128, sizeof(uint32_t), true, index_1_data, index_1_mutex);
-    register_2_data = data_store.register_element("K_11", "P_1", 107, sizeof(uint32_t), true, index_2_data, index_2_mutex);
-    register_3_data = data_store.register_element("K_123", "P_1", 549, sizeof(uint32_t), true, index_3_data, index_3_mutex);
-    register_4_data = data_store.register_element("K_11", "P_1", 549, sizeof(uint32_t), true, index_4_data, index_4_mutex);
-
-    std::cout << "index_1_data: " << index_1_data << ", index_1_mutex: " << index_1_mutex << std::endl;
-    std::cout << "index_2_data: " << index_2_data << ", index_2_mutex: " << index_2_mutex << std::endl;
-    std::cout << "index_3_data: " << index_3_data << ", index_3_mutex: " << index_3_mutex << std::endl;
-    std::cout << "index_4_data: " << index_4_data << ", index_4_mutex: " << index_4_mutex << std::endl;
-
+    std::cout << "dse_1.index: " << dse_1.get_index_data() << ", dse_1.mutex: " << dse_1.get_index_mutex() << std::endl;
+    std::cout << "dse_2.index: " << dse_2.get_index_data() << ", dse_2.mutex: " << dse_2.get_index_mutex() << std::endl;
+    std::cout << "dse_3.index: " << dse_3.get_index_data() << ", dse_3.mutex: " << dse_3.get_index_mutex() << std::endl;
+    std::cout << "dse_4.index: " << dse_4.get_index_data() << ", dse_4.mutex: " << dse_4.get_index_mutex() << std::endl;
+    std::cout << "dse_5.index: " << dse_5.get_index_data() << ", dse_5.mutex: " << dse_5.get_index_mutex() << std::endl;
     return 0;
 }
