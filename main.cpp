@@ -14,12 +14,12 @@ int main()
 
     Data_store_element<int32_t> dse_1("K_1", "P_1", 125, true);
     Data_store_element<int32_t> dse_2("K_11", "P_1", 127, true);
-    Data_store_element<int32_t> dse_3("K_12", "P_1", 127, true);
-    Data_store_element<int32_t> dse_4("K_12", "P_1", 45, true);
-    Data_store_element<int32_t> dse_5("K_11", "P_1", 446, true);
-    Data_store_element<int32_t> dse_6("K_144", "P_1", 446, true);
-    Data_store_element<int32_t> dse_7("K_1", "P_1", 446, true);
-    Data_store_element<int32_t> dse_8("K_1234", "P_1", 446, true);
+    Data_store_element<int32_t> dse_3("K_112", "P_1", 127, true);
+    Data_store_element<int32_t> dse_4("K_122", "P_1", 45, true);
+    Data_store_element<int32_t> dse_5("K_131", "P_1", 446, true);
+    Data_store_element<int32_t> dse_6("K_1444", "P_1", 446, true);
+    Data_store_element<int32_t> dse_7("K_15", "P_1", 446, true);
+    Data_store_element<int32_t> dse_8("K_16234", "P_1", 446, true);
 
     std::cout << "dse_1.index: " << dse_1.get_index_data() << ", dse_1.mutex: " << dse_1.get_index_mutex() << std::endl;
     std::cout << "dse_2.index: " << dse_2.get_index_data() << ", dse_2.mutex: " << dse_2.get_index_mutex() << std::endl;
