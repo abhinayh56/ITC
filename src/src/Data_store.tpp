@@ -111,4 +111,9 @@ Data_store::Data_store()
 
 Data_store::~Data_store()
 {
+    for (auto &m : m_mutex_buffer)
+    {
+        pthread_mutex_destroy(&m);
+    }
+    pthread_mutex_destroy(&m_mutex);
 }
