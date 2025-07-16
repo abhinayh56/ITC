@@ -12,6 +12,13 @@ bool Data_store::register_element(std::string key_, std::string path_, T data_, 
     std::cout << "---\n";
     std::cout << "m_data_buffer : " << m_data_buffer.size() << std::endl;
     std::cout << "m_mutex_buffer: " << m_mutex_buffer.size() << std::endl;
+
+    if (m_offset_mutex >= m_mutex_buffer.size())
+    {
+        std::cout << "ERROR: No mutex available" << std::endl;
+        return false;
+    }
+
     pthread_mutex_lock(&m_mutex_buffer[0]);
 
     std::string path_key = path_ + "/" + key_;
