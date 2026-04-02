@@ -40,6 +40,9 @@ public:
         a2e1.get(a2e1_val);
         a2e2.get(a2e2_val);
 
+        a1e1.set(172);
+        a1e2.set(-1172);
+
         std::cout << a2e1_val << "\n";
         std::cout << a2e2_val << "\n";
     }
