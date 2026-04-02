@@ -12,6 +12,10 @@ public:
 
     ~Data_store_element();
 
+    inline void publish();
+
+    inline void subscribe();
+
     inline bool get(T &data_);
 
     inline bool set(const T &data_);
@@ -23,7 +27,7 @@ public:
 private:
     std::string m_key;
     std::string m_path;
-    // T m_data;
+    T m_data;
     std::size_t m_size;
     uint64_t m_index_data;
     uint64_t m_index_mutex;
