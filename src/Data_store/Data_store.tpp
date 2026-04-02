@@ -20,7 +20,7 @@ bool Data_store::register_element(std::string key_, std::string path_, T data_, 
 
     if (m_offset_mutex >= m_mutex_buffer.size())
     {
-        std::cout << "ERROR: No mutex available" << std::endl;
+        std::cout << "\tERROR: No mutex available" << std::endl;
         return false;
     }
 
