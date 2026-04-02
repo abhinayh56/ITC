@@ -5,19 +5,19 @@ int main()
 {
     int32_t data_1 = 0;
     int32_t data_2 = 0;
-    int32_t data_3 = 0;
-    int32_t data_4 = 0;
-    int32_t data_5 = 0;
-    int32_t data_6 = 0;
+    int16_t data_3 = 0;
+    int8_t data_4 = 0;
+    int16_t data_5 = 0;
+    int8_t data_6 = 0;
     int32_t data_7 = 0;
     int32_t data_8 = 0;
 
     Data_store_element<int32_t> dse_1("K_1", "P_1", 125, true);
-    Data_store_element<int32_t> dse_2("K_11", "P_1", 127, true);
-    Data_store_element<int32_t> dse_3("K_112", "P_1", 127, true);
-    Data_store_element<int32_t> dse_4("K_122", "P_1", 45, true);
-    Data_store_element<int32_t> dse_5("K_131", "P_1", 446, true);
-    Data_store_element<int32_t> dse_6("K_1444", "P_1", 446, true);
+    Data_store_element<int32_t> dse_2("K_112", "P_1", 127, true);
+    Data_store_element<int16_t> dse_3("K_1122", "P_1", 127, true);
+    Data_store_element<int8_t> dse_4("K_122", "P_1", 45, true);
+    Data_store_element<int16_t> dse_5("K_131", "P_1", 446, true);
+    Data_store_element<int8_t> dse_6("K_1444", "P_1", -123, true);
     Data_store_element<int32_t> dse_7("K_15", "P_1", 446, true);
     Data_store_element<int32_t> dse_8("K_16234", "P_1", 446, true);
 

@@ -7,11 +7,16 @@ Data_store &Data_store::getInstance()
 }
 
 template <typename T>
-bool Data_store::register_element(std::string key_, std::string path_, T data_, std::size_t size_, bool overwrite_, uint64_t &index_data, uint64_t &index_mutex)
+bool Data_store::register_element(const std::string &key_, const std::string &path_, T &data_, std::size_t size_, bool overwrite_, uint64_t &index_data, uint64_t &index_mutex)
 {
     std::cout << "---\n";
-    std::cout << "m_data_buffer : " << m_data_buffer.size() << std::endl;
-    std::cout << "m_mutex_buffer: " << m_mutex_buffer.size() << std::endl;
+    std::cout << "Registering data element in data_store\n";
+    std::cout << "\tkey      : " << key_ << "\n";
+    std::cout << "\tpath     : " << path_ << "\n";
+    std::cout << "\tsize     : " << size_ << "\n";
+    std::cout << "\toverwrite: " << overwrite_ << "\n";
+    std::cout << "\tavailable data_buffer : " << m_data_buffer.size() << std::endl;
+    std::cout << "\tavailable mutex_buffer: " << m_mutex_buffer.size() << std::endl;
 
     if (m_offset_mutex >= m_mutex_buffer.size())
     {
@@ -22,8 +27,7 @@ bool Data_store::register_element(std::string key_, std::string path_, T data_, 
     pthread_mutex_lock(&m_mutex_buffer[0]);
 
     std::string path_key = path_ + "/" + key_;
-    std::cout << "---\n"
-              << path_key << "\n";
+    std::cout << "\tpath_key: " << path_key << "\n";
 
     auto it = m_data_element_map.find(path_key);
     uint64_t index_d = 0;
@@ -32,12 +36,14 @@ bool Data_store::register_element(std::string key_, std::string path_, T data_, 
     if (it == m_data_element_map.end())
     {
         size_t alignment = alignof(T);
-        uint64_t m_offset_required = (m_offset_data + alignment - 1) & ~(alignment - 1); // align up
+        uint64_t m_offset_required = (m_offset_data + alignment - 1) & ~(alignment - 1);
 
         size_t required_size = m_offset_required + size_;
 
         if (required_size > m_data_buffer.size())
         {
+            std::cout << "\tavailable data_buffer size: " << m_data_buffer.size() << ", required data_buffer size: " << required_size << std::endl;
+            std::cout << "\tResizing data_buffer size to " << required_size << std::endl;
             m_data_buffer.resize(required_size);
         }
 
@@ -52,7 +58,7 @@ bool Data_store::register_element(std::string key_, std::string path_, T data_, 
         pthread_mutex_init(&m_mutex_buffer[index_m], &attr);
         pthread_mutexattr_destroy(&attr);
 
-        std::cout << "INFO: Data element set.         index_d: " << index_d << ", Key: " << key_ << ", Path: " << path_ << ", Value: " << data_ << std::endl;
+        std::cout << "\tData element set. index_d: " << index_d << ", Key: " << key_ << ", Path: " << path_ << ", Value: " << data_ << std::endl;
         m_offset_data += size_;
         m_offset_mutex += 1;
         memcpy(&m_data_buffer[index_d], &data_, size_);
@@ -69,16 +75,13 @@ bool Data_store::register_element(std::string key_, std::string path_, T data_, 
         {
             memcpy(&data_, &m_data_buffer[index_d], size_);
         }
-        std::cout << "INFO: Data element already set. index_d: " << index_d << ", Key: " << key_ << ", Path: " << path_ << ", Value: " << data_ << std::endl;
+        std::cout << "\tData element already set. index_d: " << index_d << ", Key: " << key_ << ", Path: " << path_ << ", Value: " << data_ << std::endl;
     }
 
     index_data = index_d;
     index_mutex = index_m;
 
     pthread_mutex_unlock(&m_mutex_buffer[0]);
-
-    std::cout << "m_data_buffer : " << m_data_buffer.size() << std::endl;
-    std::cout << "m_mutex_buffer: " << m_mutex_buffer.size() << std::endl;
 
     return true;
 }

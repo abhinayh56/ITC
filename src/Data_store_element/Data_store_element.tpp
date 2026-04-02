@@ -7,7 +7,7 @@ Data_store_element<T>::Data_store_element(std::string key_, std::string path_, T
     m_path = path_;
     m_data = data_;
     m_size = sizeof(T);
-
+    
     data_store.register_element<T>(m_key, m_path, m_data, m_size, overwrite_, m_index_data, m_index_mutex);
 }
 
