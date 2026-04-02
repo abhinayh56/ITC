@@ -3,23 +3,23 @@
 
 int main()
 {
-    int32_t data_1 = 0;
-    int32_t data_2 = 0;
-    int16_t data_3 = 0;
-    int8_t data_4 = 0;
-    int16_t data_5 = 0;
-    int8_t data_6 = 0;
-    int32_t data_7 = 0;
-    int32_t data_8 = 0;
+    uint8_t data_1 = 0;
+    uint16_t data_2 = 0;
+    uint32_t data_3 = 0;
+    uint64_t data_4 = 0;
+    uint8_t data_5 = 0;
+    uint8_t data_6 = 0;
+    uint8_t data_7 = 0;
+    uint8_t data_8 = 0;
 
-    Data_store_element<int32_t> dse_1("K_1", "P_1", 125, true);
-    Data_store_element<int32_t> dse_2("K_112", "P_1", 127, true);
-    Data_store_element<int16_t> dse_3("K_1122", "P_1", 127, true);
-    Data_store_element<int8_t> dse_4("K_122", "P_1", 45, true);
-    Data_store_element<int16_t> dse_5("K_131", "P_1", 446, true);
-    Data_store_element<int8_t> dse_6("K_1444", "P_1", -123, true);
-    Data_store_element<int32_t> dse_7("K_15", "P_1", 446, true);
-    Data_store_element<int32_t> dse_8("K_16234", "P_1", 446, true);
+    Data_store_element<uint8_t> dse_1("K_1", "P_1", 125, true);
+    Data_store_element<uint16_t> dse_2("K_112", "P_1", 127, true);
+    Data_store_element<uint32_t> dse_3("K_1122", "P_1", 127, true);
+    Data_store_element<uint64_t> dse_4("K_122", "P_1", 45, true);
+    Data_store_element<uint8_t> dse_5("K_131", "P_1", 84, true);
+    Data_store_element<uint8_t> dse_6("K_1444", "P_1", 123, true);
+    Data_store_element<uint8_t> dse_7("K_15", "P_1", 6, true);
+    Data_store_element<uint8_t> dse_8("K_16234", "P_1", 28, true);
 
     std::cout << "dse_1.index: " << dse_1.get_index_data() << ", dse_1.mutex: " << dse_1.get_index_mutex() << std::endl;
     std::cout << "dse_2.index: " << dse_2.get_index_data() << ", dse_2.mutex: " << dse_2.get_index_mutex() << std::endl;

@@ -12,18 +12,18 @@ public:
 
     ~Data_store_element();
 
-    bool get(T &data_);
+    inline bool get(T &data_);
 
-    bool set(const T &data_);
+    inline bool set(const T &data_);
 
-    uint64_t get_index_data();
+    inline uint64_t get_index_data();
 
-    uint64_t get_index_mutex();
+    inline uint64_t get_index_mutex();
 
 private:
     std::string m_key;
     std::string m_path;
-    T m_data;
+    // T m_data;
     std::size_t m_size;
     uint64_t m_index_data;
     uint64_t m_index_mutex;
