@@ -28,13 +28,9 @@ int main()
     uint64_t index_data_1;
     uint64_t index_mutex_1;
 
-    
-
     Data_struct struct_1;
 
-    // ds.register_element<uint32_t>("key_1", "path_1", 1293, 4, true, index_data_1, index_mutex_1);
-    // ds.register_element<uint32_t>(key_1, path_1, 1293, 4, true, index_data_1, index_mutex_1);
-    // ds.register_element<uint32_t>(key_1, path_1, value_1, sizeof(value_1), true, index_data_1, index_mutex_1);
+    ds.register_element<uint32_t>(key_1, path_1, value_1, sizeof(value_1), true, index_data_1, index_mutex_1);
     ds.register_element<Data_struct>(key_1, path_1, struct_1, sizeof(struct_1), true, index_data_1, index_mutex_1);
     
 
