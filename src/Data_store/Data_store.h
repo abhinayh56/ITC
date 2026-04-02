@@ -18,7 +18,7 @@ public:
     static Data_store &getInstance();
 
     template <typename T>
-    bool register_element(const std::string &key_, const std::string &path_, T &data_, std::size_t size_, bool overwrite_, uint64_t &index_data, uint64_t &index_mutex);
+    bool register_element(std::string key_, std::string path_, T data_, std::size_t size_, bool overwrite_, uint64_t &index_data, uint64_t &index_mutex);
 
     template <typename T>
     bool get(uint64_t index_data, uint64_t index_mutex, T &data_, std::size_t size_);

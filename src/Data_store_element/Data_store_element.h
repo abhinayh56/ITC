@@ -24,9 +24,9 @@ private:
     std::string m_key;
     std::string m_path;
     T m_data;
+    std::size_t m_size;
     uint64_t m_index_data;
     uint64_t m_index_mutex;
-    std::size_t m_size;
 
     Data_store &data_store = Data_store::getInstance();
 };

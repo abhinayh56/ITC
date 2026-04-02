@@ -7,7 +7,7 @@ Data_store &Data_store::getInstance()
 }
 
 template <typename T>
-bool Data_store::register_element(const std::string &key_, const std::string &path_, T &data_, std::size_t size_, bool overwrite_, uint64_t &index_data, uint64_t &index_mutex)
+bool Data_store::register_element(std::string key_, std::string path_, T data_, std::size_t size_, bool overwrite_, uint64_t &index_data, uint64_t &index_mutex)
 {
     std::cout << "---\n";
     std::cout << "Registering data element in data_store\n";
