@@ -58,7 +58,7 @@ bool Data_store::register_element(const std::string &key_, const std::string &pa
         pthread_mutex_init(&m_mutex_buffer[index_m], &attr);
         pthread_mutexattr_destroy(&attr);
 
-        std::cout << "\tData element set. index_d: " << index_d << ", Key: " << key_ << ", Path: " << path_ << ", Value: " << data_ << std::endl;
+        std::cout << "\tData element set. index_d: " << index_d << ", Key: " << key_ << ", Path: " << path_ << ", Value: " << "data_" << std::endl;
         m_offset_data += size_;
         m_offset_mutex += 1;
         memcpy(&m_data_buffer[index_d], &data_, size_);
@@ -75,7 +75,7 @@ bool Data_store::register_element(const std::string &key_, const std::string &pa
         {
             memcpy(&data_, &m_data_buffer[index_d], size_);
         }
-        std::cout << "\tdata element already set. index_d: " << index_d << ", Key: " << key_ << ", Path: " << path_ << ", Value: " << data_ << std::endl;
+        std::cout << "\tdata element already set. index_d: " << index_d << ", Key: " << key_ << ", Path: " << path_ << ", Value: " << "data_" << std::endl;
     }
 
     index_data = index_d;
