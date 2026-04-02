@@ -7,7 +7,7 @@ Data_store &Data_store::getInstance()
 }
 
 template <typename T>
-bool Data_store::register_element(std::string key_, std::string path_, T data_, std::size_t size_, bool overwrite_, uint64_t &index_data, uint64_t &index_mutex)
+bool Data_store::register_element(const std::string &key_, const std::string &path_, T &data_, std::size_t size_, bool overwrite_, uint64_t &index_data, uint64_t &index_mutex)
 {
     std::cout << "---\n";
     std::cout << "Registering data element in data_store\n";
@@ -43,7 +43,7 @@ bool Data_store::register_element(std::string key_, std::string path_, T data_, 
         if (required_size > m_data_buffer.size())
         {
             std::cout << "\tavailable data_buffer size: " << m_data_buffer.size() << ", required data_buffer size: " << required_size << std::endl;
-            std::cout << "\tResizing data_buffer size to " << required_size << std::endl;
+            std::cout << "\tresizing data_buffer size to " << required_size << std::endl;
             m_data_buffer.resize(required_size);
         }
 
@@ -75,7 +75,7 @@ bool Data_store::register_element(std::string key_, std::string path_, T data_, 
         {
             memcpy(&data_, &m_data_buffer[index_d], size_);
         }
-        std::cout << "\tData element already set. index_d: " << index_d << ", Key: " << key_ << ", Path: " << path_ << ", Value: " << data_ << std::endl;
+        std::cout << "\tdata element already set. index_d: " << index_d << ", Key: " << key_ << ", Path: " << path_ << ", Value: " << data_ << std::endl;
     }
 
     index_data = index_d;
@@ -113,6 +113,10 @@ Data_store::Data_store()
     if (mlockall(MCL_CURRENT | MCL_FUTURE) != 0)
     {
         std::cerr << "WARNING: Failed to lock memory with mlockall\n";
+    }
+    else
+    {
+        std::cout << "Locked memory with mlockall\n";
     }
 
     m_data_buffer.reserve(1024);
