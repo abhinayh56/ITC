@@ -7,7 +7,7 @@ Data_store &Data_store::getInstance()
 }
 
 template <typename T>
-bool Data_store::register_element(const std::string &key_, const std::string &path_, T &data_, std::size_t size_, bool overwrite_, uint64_t &index_data, uint64_t &index_mutex)
+bool Data_store::register_element(const std::string &key_, const std::string &path_, T data_, std::size_t size_, bool overwrite_, uint64_t &index_data, uint64_t &index_mutex)
 {
     std::cout << "---\n";
     std::cout << "Registering data element in data_store\n";
@@ -35,8 +35,8 @@ bool Data_store::register_element(const std::string &key_, const std::string &pa
 
     if (it == m_data_element_map.end())
     {
-        size_t alignment = alignof(T);
-        uint64_t m_offset_required = (m_offset_data + alignment - 1) & ~(alignment - 1);
+        // size_t alignment = alignof(T);
+        uint64_t m_offset_required = m_offset_data; //(m_offset_data + alignment - 1) & ~(alignment - 1);
 
         size_t required_size = m_offset_required + size_;
 
@@ -93,8 +93,9 @@ bool Data_store::get(uint64_t index_data, uint64_t index_mutex, T &data_, std::s
     {
         memcpy(&data_, &m_data_buffer[index_data], size_);
         pthread_mutex_unlock(&m_mutex_buffer[index_mutex]);
+        return true;
     }
-    return true;
+    return false;
 }
 
 template <typename T>
@@ -104,8 +105,9 @@ bool Data_store::set(uint64_t index_data, uint64_t index_mutex, const T &data_, 
     {
         memcpy(&m_data_buffer[index_data], &data_, size_);
         pthread_mutex_unlock(&m_mutex_buffer[index_mutex]);
+        return true;
     }
-    return true;
+    return false;
 }
 
 Data_store::Data_store()
@@ -119,7 +121,8 @@ Data_store::Data_store()
         std::cout << "Locked memory with mlockall\n";
     }
 
-    m_data_buffer.reserve(1024);
+    // m_data_buffer.reserve(1024);
+    m_data_buffer.resize(1024);
     m_mutex_buffer.resize(1500);
 
     pthread_mutexattr_t attr;

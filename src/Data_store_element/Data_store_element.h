@@ -12,13 +12,17 @@ public:
 
     ~Data_store_element();
 
-    bool get(T &data_);
+    inline void publish();
 
-    bool set(const T &data_);
+    inline void subscribe();
 
-    uint64_t get_index_data();
+    inline bool get(T &data_);
 
-    uint64_t get_index_mutex();
+    inline bool set(const T &data_);
+
+    inline uint64_t get_index_data();
+
+    inline uint64_t get_index_mutex();
 
 private:
     std::string m_key;
