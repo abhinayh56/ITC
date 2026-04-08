@@ -42,7 +42,7 @@ private:
     std::vector<pthread_mutex_t> m_mutex_buffer;
     
     uint64_t m_offset_data = 0;
-    uint64_t m_offset_mutex = 0;
+    uint64_t m_offset_mutex = 1;
 };
 
 #include "Data_store.tpp"
